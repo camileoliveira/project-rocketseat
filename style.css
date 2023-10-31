@@ -1,0 +1,220 @@
+* {
+  /* resetando o css, isto é, tirando todas as conf. pré-prontas que o browser tem*/
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* esse processo foi feito depois de fazer todos os ajustes do modo black, agora irei utilizar
+o blsck dando o nome de root(raiz, principa) para configurar o mood light sem precisa configurar tudooo
+novamente. Aqui funciona como uma variável, em que eu atribuo o valor para uma variaável */
+:root {
+  --text-color: white; /* a variável que chamei de text-color vai receber white */
+  --bg-url: url(./assets/bg-mobile.jpg); /* imagem de fundo*/
+  --stroke-color: rgba(225, 225, 225, 0.5);
+  /* cor da borda das caixas dos links -- esses nomes foi a UX que colocou no figma */
+  --surface-color: rgba(225, 225, 225, 0.05);
+  /* cor do fundo das caixas dos links */
+  --surface-color-hover: rgba(0, 0, 0, 0.02);
+  --hightligh-color: rgba(225, 225, 225, 0.2);
+  --switch-bg-url: url(./assets/moon-stars.svg);
+}
+
+/* quando eu usar na primeira linha do html a classe ligh, ele vai fazer essas configurações aqui: */
+.light {
+  --text-color: black; /* agora a variável que chamei de text-color vai receber black */
+  --bg-url: url(./assets/bg-mobile-light.jpg);
+  --stroke-color: rgba(0, 0, 0, 0.5);
+  --surface-color: rgba(0, 0, 0, 0.05);
+  --sufarce-color-hover: rgba(0, 05, 0, 0.02);
+  --hightligh-color: rgba(0, 0, 0, 0.1);
+  --switch-bg-url: url(./assets/sun.svg);
+}
+
+/* configurando o body (o que é visível para o usuário) */
+body {
+  background: var(--bg-url) no-repeat top center/cover;
+  /* o background do body vai receber a variável de fundo que atribuí no modo root ou light, depende do que for chamado */
+  height: 100vh;
+}
+body * {
+  font-family: "Inter", sans-serif; /* todo o body terá  a mesma fonte, encontrada no fontes do goole- também o 1º link do html*/
+  color: var(--text-color);
+  /* o texto vai receber a cor de acordo com a var que atribuí no modo root ou light, depende do que for chamado */
+}
+#container {
+  width: 100%;
+  max-width: 588px;
+  margin: 56px auto 0px;
+  padding: 0 24px;
+}
+
+#profile {
+  text-align: center; /* alinhando tudo que está na tag profile ao centro*/
+  padding: 24px;
+}
+
+#profile img {
+  /* pegando as tags filha do profile, isto é, tudo que tá dentro da div que chemei de profile*/
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}
+
+#profile p {
+  font-weight: 500;
+  line-height: 24px;
+  margin-top: 8px;
+}
+
+#switch {
+  position: relative;
+  width: 64px;
+  /* quando eu coloco esse position relative, o css entende que o meu */
+  margin: 4px auto;
+}
+
+#switch button {
+  width: 32px;
+  height: 32px;
+  border: 0px;
+  border-radius: 50%;
+  background: white var(--switch-bg-url) no-repeat center;
+
+  position: absolute;
+  /* quando eu coloco esse absoluto, o css faz uma sobreposição de camadas*/
+  right: 0;
+  z-index: 1;
+  /* quando eu coloco ele na posição 1, é fica um na camada de cima do outro*/
+  top: 50%;
+  left: 0;
+  /* quando eu coloco ele no top quero mexer em cima e em baixo, se fosse de uma lado ou do outro seria right ou left*/
+
+  transform: translateY(-50%);
+  /* quando eu coloco ele no eixo y -50% quer dizer que estou colocando a url metade em cima e mate embaixo do button,
+  se eu quisesse ue fosse da esqueda ou direita seria no eixo x*/
+
+  animation: slide-back 0.4s;
+  /* animação do botão */
+}
+.light #switch button {
+  /* digo que é uma animaão, coloco o nome dela, que dei lá nas chaves do final, slid-in, coloco o tempo, e uso
+  a palavra forwards para que a o botão continue no final, poi senão, ele voltarei p o começo */
+  animation: slide-in 0.4s forwards;
+}
+
+#switch button:hover {
+  outline: 8px solid var(--hightligh-color);
+}
+
+#switch span {
+  display: block;
+  /* o span automaticamente tem um display inline que nao aceita algumas propriedades, como largura, então mudei para block */
+  width: 64px;
+  height: 24px;
+  background: var(--surface-color);
+  border: 1px solid var(--stroke-color);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 9999px;
+}
+
+/*links*/ 
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 0;
+}
+
+ul li a {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+
+  padding: 16px 24px;
+  background-color: var(--surface-color);
+  border: 1px solid var(--stroke-color);
+  border-radius: 8px;
+
+  backdrop-filter: blur 4px;
+  -webkit-backdrop-filter: blur(4px);
+  /* isso foi colocado pois o safari só compreende essa estilização com esse webkit antes */
+
+  text-decoration: none;
+  font-weight: 500px;
+
+  transition: backgournd 0.2s;
+  /* para transição do hover, ou seja, quando coloco o mouse em cima. Na classificação abaixo eu irei estilizar essa função de mouse por cima */
+}
+
+/* esse a:houver é o pseudo selector - ou seja, aplicar quando passar o mouse em cima: */
+ul li a:hover {
+  background-color: var(--sufarce-color-hover);
+  border: 1.5px var(--text-color);
+}
+
+#social-links {
+  display: flex;
+  padding: 24px 0;
+  font-size: 24px;
+  justify-content: center;
+}
+
+#social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  transition: background 0.2s;
+  border-radius: 50%;
+  /* coloquei aqui ao invés do a:hover pq quando eu tirava o mouse de cima, ele aparecia o background quadrado) */
+}
+
+/* aplicar quando passar o mouse em cima dos icones */
+#social-links a:hover {
+  background: var(--hightligh-color);
+}
+
+footer {
+  padding: 24px 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* media querys 
+   Quando a largura for maior que 700vh, ou seja, para desktop, o background vai colocar a imagem de fundo do tamano ideal 
+   que eu selecionei
+*/
+@media (min-width: 700vh) {
+  :root {
+    --bg-url: url(./assets/bg-desktop.jpg);
+  }
+
+  .light {
+    --bg-url: url(./assets/bg-desktop-light.jpg);
+  }
+}
+
+/* Fazer uma animação, chamada de at-rules, para que o meu buton passe de forma mais animada. Isso
+é possível através do @keyframes - em seguida eu dou o nome que eu quiser (slide-in) */
+@keyframes slide-in {
+  /* onde vai começar: */
+  from {
+    left: 0;
+  }
+  /* onde vai terminar: */
+  to {
+    left: 50%;
+  }
+  /* agora vou lá tag do butão light e coloco pra fazer a animação */
+}
+/*  fazendo para quando estiver no modo noturno */
+@keyframes slide-back {
+  from {
+    left: 50%;
+  }
+  to {
+    left: 0;
+  }
+}
